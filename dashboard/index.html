@@ -3,58 +3,249 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DEONETAP | Dashboard</title>
-  <link rel="stylesheet" href="../styles.css">
+  <meta name="theme-color" content="#080808">
+  <title>Panel | DEONETAP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #070707;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    header {
+      padding: 24px;
+      border-bottom: 1px solid #332a12;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 5px;
+    }
+
+    .logo span {
+      color: #d4af37;
+    }
+
+    .logout {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 700px;
+      margin: auto;
+      padding: 40px 22px 80px;
+    }
+
+    .eyebrow {
+      color: #d4af37;
+      letter-spacing: 4px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    h1 {
+      font-size: 38px;
+      margin: 12px 0 8px;
+    }
+
+    .subtitle {
+      color: #999;
+      margin-bottom: 35px;
+      line-height: 1.5;
+    }
+
+    .card {
+      background: #101010;
+      border: 1px solid #282828;
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    label {
+      display: block;
+      color: #bbb;
+      font-size: 14px;
+      margin: 18px 0 8px;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: #080808;
+      color: white;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 16px;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #d4af37;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 17px;
+      margin-top: 25px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      background: linear-gradient(135deg,#b58a18,#f0cf65);
+      color: #080808;
+    }
+
+    .profile-link {
+      display: block;
+      text-align: center;
+      color: #d4af37;
+      margin-top: 20px;
+      text-decoration: none;
+    }
+
+    .status {
+      display: none;
+      margin-top: 18px;
+      padding: 13px;
+      background: #142014;
+      border: 1px solid #295629;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      color: #666;
+      padding: 30px;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-  <a class="brand" href="../index.html">DEONE<span>TAP</span></a>
-  <a class="navbtn" href="../demo.html">Ver mi perfil</a>
+  <div class="logo">DEONE<span>TAP</span></div>
+  <div class="logout">Panel de cliente</div>
 </header>
 
 <main>
 
-  <section class="hero">
-    <div class="eyebrow">PANEL DE CLIENTE</div>
+  <div class="eyebrow">MI DEONETAP</div>
+  <h1>Administrar perfil</h1>
 
-    <h1>
-      Tu DEONETAP.<br>
-      <span>Todo bajo control.</span>
-    </h1>
+  <p class="subtitle">
+    Edita la información que aparecerá cuando alguien toque tu tarjeta NFC.
+  </p>
 
-    <p>
-      Administra la información que tus clientes verán
-      cuando acerquen su teléfono a tu tarjeta NFC.
-    </p>
-  </section>
+  <div class="card">
 
-  <section class="section">
+    <h2>Información personal</h2>
 
-    <div class="eyebrow">MI PERFIL</div>
+    <label>Nombre</label>
+    <input id="nombre" value="Mario Noriega">
 
-    <h2>Información de tu tarjeta</h2>
+    <label>Descripción</label>
+    <textarea id="descripcion">Mi perfil digital DEONETAP.</textarea>
 
-    <p>
-      Esta es la primera versión del panel de administración.
-    </p>
+  </div>
 
-    <a class="btn primary" href="../demo.html">
-      Ver perfil público
-    </a>
+  <div class="card">
 
-    <a class="btn" href="../index.html">
-      Volver al inicio
-    </a>
+    <h2>Contacto y redes</h2>
 
-  </section>
+    <label>WhatsApp</label>
+    <input id="whatsapp" placeholder="Ej. 6691234567">
+
+    <label>Instagram</label>
+    <input id="instagram" placeholder="@usuario">
+
+    <label>TikTok</label>
+    <input id="tiktok" placeholder="@usuario">
+
+    <label>Teléfono</label>
+    <input id="telefono" placeholder="6691234567">
+
+    <label>Correo electrónico</label>
+    <input id="correo" type="email" placeholder="correo@ejemplo.com">
+
+    <button onclick="guardar()">
+      Guardar cambios
+    </button>
+
+    <div id="status" class="status">
+      ✓ Información guardada en este dispositivo
+    </div>
+
+  </div>
+
+  <a class="profile-link" href="../p/mario/">
+    Ver mi perfil →
+  </a>
 
 </main>
 
 <footer>
-  © 2026 DEONETAP · Panel de cliente
+  © 2026 DEONETAP
 </footer>
+
+<script>
+
+function guardar() {
+
+  const perfil = {
+    nombre: document.getElementById("nombre").value,
+    descripcion: document.getElementById("descripcion").value,
+    whatsapp: document.getElementById("whatsapp").value,
+    instagram: document.getElementById("instagram").value,
+    tiktok: document.getElementById("tiktok").value,
+    telefono: document.getElementById("telefono").value,
+    correo: document.getElementById("correo").value
+  };
+
+  localStorage.setItem("deonetapPerfil", JSON.stringify(perfil));
+
+  document.getElementById("status").style.display = "block";
+}
+
+const guardado = localStorage.getItem("deonetapPerfil");
+
+if (guardado) {
+
+  const p = JSON.parse(guardado);
+
+  document.getElementById("nombre").value = p.nombre || "";
+  document.getElementById("descripcion").value = p.descripcion || "";
+  document.getElementById("whatsapp").value = p.whatsapp || "";
+  document.getElementById("instagram").value = p.instagram || "";
+  document.getElementById("tiktok").value = p.tiktok || "";
+  document.getElementById("telefono").value = p.telefono || "";
+  document.getElementById("correo").value = p.correo || "";
+}
+
+</script>
 
 </body>
 </html>
