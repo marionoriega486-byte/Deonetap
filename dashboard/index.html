@@ -19,121 +19,108 @@
     }
 
     header {
-      padding: 24px;
+      padding: 22px;
       border-bottom: 1px solid #332a12;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
     .logo {
       font-size: 22px;
       font-weight: 800;
-      letter-spacing: 5px;
+      letter-spacing: 4px;
     }
 
     .logo span {
       color: #d4af37;
     }
 
-    .logout {
-      color: #aaa;
-      font-size: 14px;
-    }
-
     main {
-      max-width: 700px;
+      max-width: 720px;
       margin: auto;
-      padding: 40px 22px 80px;
-    }
-
-    .eyebrow {
-      color: #d4af37;
-      letter-spacing: 4px;
-      font-weight: bold;
-      font-size: 13px;
+      padding: 28px 20px 60px;
     }
 
     h1 {
-      font-size: 38px;
-      margin: 12px 0 8px;
+      margin-bottom: 8px;
     }
 
     .subtitle {
       color: #999;
-      margin-bottom: 35px;
-      line-height: 1.5;
+      margin-bottom: 28px;
     }
 
     .card {
       background: #101010;
-      border: 1px solid #282828;
-      border-radius: 20px;
+      border: 1px solid #292929;
+      border-radius: 18px;
       padding: 22px;
       margin-bottom: 20px;
     }
 
-    .card h2 {
-      margin-top: 0;
-      font-size: 20px;
+    .label {
+      color: #999;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .code {
+      font-size: 25px;
+      font-weight: bold;
+      color: #d4af37;
+      margin-bottom: 20px;
     }
 
     label {
       display: block;
-      color: #bbb;
+      margin-bottom: 8px;
       font-size: 14px;
-      margin: 18px 0 8px;
     }
 
-    input, textarea {
+    input {
       width: 100%;
       background: #080808;
-      color: white;
       border: 1px solid #333;
-      border-radius: 12px;
-      padding: 15px;
+      color: white;
+      border-radius: 10px;
+      padding: 14px;
       font-size: 16px;
-    }
-
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: #d4af37;
-    }
-
-    textarea {
-      min-height: 90px;
-      resize: vertical;
+      margin-bottom: 15px;
     }
 
     button {
       width: 100%;
-      border: none;
-      border-radius: 14px;
-      padding: 17px;
-      margin-top: 25px;
+      border: 0;
+      border-radius: 10px;
+      padding: 15px;
+      background: #d4af37;
+      color: #000;
       font-size: 16px;
-      font-weight: 800;
+      font-weight: bold;
       cursor: pointer;
-      background: linear-gradient(135deg,#b58a18,#f0cf65);
-      color: #080808;
     }
 
-    .profile-link {
-      display: block;
-      text-align: center;
-      color: #d4af37;
-      margin-top: 20px;
-      text-decoration: none;
+    button:disabled {
+      opacity: .6;
     }
 
     .status {
-      display: none;
-      margin-top: 18px;
-      padding: 13px;
-      background: #142014;
-      border: 1px solid #295629;
+      margin-top: 15px;
+      padding: 12px;
       border-radius: 10px;
-      text-align: center;
+      background: #171717;
+      display: none;
+      line-height: 1.4;
+    }
+
+    .qr-url {
+      overflow-wrap: anywhere;
+      color: #d4af37;
+      font-size: 14px;
+    }
+
+    .small {
+      color: #888;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     footer {
@@ -148,62 +135,55 @@
 
 <header>
   <div class="logo">DEONE<span>TAP</span></div>
-  <div class="logout">Panel de cliente</div>
 </header>
 
 <main>
 
-  <div class="eyebrow">MI DEONETAP</div>
-  <h1>Administrar perfil</h1>
-
-  <p class="subtitle">
-    Edita la información que aparecerá cuando alguien toque tu tarjeta NFC.
-  </p>
-
-  <div class="card">
-
-    <h2>Información personal</h2>
-
-    <label>Nombre</label>
-    <input id="nombre" value="Mario Noriega">
-
-    <label>Descripción</label>
-    <textarea id="descripcion">Mi perfil digital DEONETAP.</textarea>
-
+  <h1>Mi placa</h1>
+  <div class="subtitle">
+    Administra el destino de tu QR y NFC.
   </div>
 
   <div class="card">
 
-    <h2>Contacto y redes</h2>
+    <div class="label">PLACA</div>
+    <div class="code">DEONETAP 0001</div>
 
-    <label>WhatsApp</label>
-    <input id="whatsapp" placeholder="Ej. 6691234567">
+    <label for="destination">
+      Enlace de destino
+    </label>
 
-    <label>Instagram</label>
-    <input id="instagram" placeholder="@usuario">
+    <input
+      id="destination"
+      type="url"
+      placeholder="https://..."
+      autocomplete="off"
+    >
 
-    <label>TikTok</label>
-    <input id="tiktok" placeholder="@usuario">
-
-    <label>Teléfono</label>
-    <input id="telefono" placeholder="6691234567">
-
-    <label>Correo electrónico</label>
-    <input id="correo" type="email" placeholder="correo@ejemplo.com">
-
-    <button onclick="guardar()">
-      Guardar cambios
+    <button id="saveButton" onclick="guardarDestino()">
+      Guardar destino
     </button>
 
-    <div id="status" class="status">
-      ✓ Información guardada en este dispositivo
-    </div>
+    <div id="status" class="status"></div>
 
   </div>
 
-  <a class="profile-link" href="../p/mario/">
-    Ver mi perfil →
-  </a>
+  <div class="card">
+
+    <div class="label">
+      ENLACE PERMANENTE DE ESTA PLACA
+    </div>
+
+    <p class="qr-url">
+      https://marionoriega486-byte.github.io/Deonetap/r/0001/
+    </p>
+
+    <p class="small">
+      Este es el enlace que debe llevar el QR impreso y el NFC.
+      Aunque cambies el destino, este enlace permanece igual.
+    </p>
+
+  </div>
 
 </main>
 
@@ -213,37 +193,166 @@
 
 <script>
 
-function guardar() {
+const SUPABASE_URL =
+  "https://pgezbktyhlyjnlxwlpsx.supabase.co";
 
-  const perfil = {
-    nombre: document.getElementById("nombre").value,
-    descripcion: document.getElementById("descripcion").value,
-    whatsapp: document.getElementById("whatsapp").value,
-    instagram: document.getElementById("instagram").value,
-    tiktok: document.getElementById("tiktok").value,
-    telefono: document.getElementById("telefono").value,
-    correo: document.getElementById("correo").value
-  };
+const SUPABASE_KEY =
+  "sb_publishable_m12HvUrizfuQHIUG9lWYrw_cU7sK_h0";
 
-  localStorage.setItem("deonetapPerfil", JSON.stringify(perfil));
+const PLATE_CODE = "0001";
 
-  document.getElementById("status").style.display = "block";
+
+async function cargarDestino() {
+
+  const status = document.getElementById("status");
+
+  try {
+
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/deonetaps?code=eq.${PLATE_CODE}&select=destination_url`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("No se pudo consultar la placa.");
+    }
+
+    const data = await response.json();
+
+    if (data.length) {
+
+      document.getElementById("destination").value =
+        data[0].destination_url || "";
+
+    } else {
+
+      status.style.display = "block";
+      status.textContent = "No encontramos la placa 0001.";
+
+    }
+
+  } catch (error) {
+
+    status.style.display = "block";
+    status.textContent =
+      "No se pudo cargar la información.";
+
+  }
 }
 
-const guardado = localStorage.getItem("deonetapPerfil");
 
-if (guardado) {
+async function guardarDestino() {
 
-  const p = JSON.parse(guardado);
+  const input =
+    document.getElementById("destination");
 
-  document.getElementById("nombre").value = p.nombre || "";
-  document.getElementById("descripcion").value = p.descripcion || "";
-  document.getElementById("whatsapp").value = p.whatsapp || "";
-  document.getElementById("instagram").value = p.instagram || "";
-  document.getElementById("tiktok").value = p.tiktok || "";
-  document.getElementById("telefono").value = p.telefono || "";
-  document.getElementById("correo").value = p.correo || "";
+  const button =
+    document.getElementById("saveButton");
+
+  const status =
+    document.getElementById("status");
+
+  let url = input.value.trim();
+
+  if (!url) {
+
+    status.style.display = "block";
+    status.textContent =
+      "Escribe un enlace primero.";
+
+    return;
+  }
+
+  if (
+    !url.startsWith("https://") &&
+    !url.startsWith("http://")
+  ) {
+
+    url = "https://" + url;
+    input.value = url;
+  }
+
+  try {
+
+    new URL(url);
+
+  } catch {
+
+    status.style.display = "block";
+    status.textContent =
+      "El enlace no es válido.";
+
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Guardando...";
+
+  status.style.display = "block";
+  status.textContent = "Guardando cambio...";
+
+  try {
+
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/deonetaps?code=eq.${PLATE_CODE}`,
+      {
+        method: "PATCH",
+
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          "Content-Type": "application/json",
+          Prefer: "return=representation"
+        },
+
+        body: JSON.stringify({
+          destination_url: url
+        })
+      }
+    );
+
+    if (!response.ok) {
+
+      const errorText =
+        await response.text();
+
+      throw new Error(errorText);
+    }
+
+    const data =
+      await response.json();
+
+    if (!data.length) {
+      throw new Error(
+        "Supabase no permitió actualizar la placa."
+      );
+    }
+
+    status.textContent =
+      "✓ Destino actualizado correctamente.";
+
+  } catch (error) {
+
+    console.error(error);
+
+    status.textContent =
+      "No se pudo guardar. Revisa los permisos de la placa.";
+
+  } finally {
+
+    button.disabled = false;
+    button.textContent = "Guardar destino";
+
+  }
 }
+
+
+cargarDestino();
 
 </script>
 
