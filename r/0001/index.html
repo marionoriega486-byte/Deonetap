@@ -61,7 +61,7 @@ async function redirect() {
 
           body: JSON.stringify({
             deonetap_id: placa.id,
-            source: "qr_nfc"
+            source: new URLSearchParams(window.location.search).get("source") || "qr"
           })
         }
       );
