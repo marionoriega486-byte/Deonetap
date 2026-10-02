@@ -656,6 +656,18 @@ async function cargarEstadisticas() {
 
       <p>QR: <strong>${qr}</strong></p>
       <p>NFC: <strong>${nfc}</strong></p>
+      <hr style="border-color:#292929; margin-top:25px;">
+
+<div style="margin-top:20px;">
+  <div class="label">INTERACCIONES · ÚLTIMOS 7 DÍAS</div>
+  <div id="grafica7dias" style="
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+    height:150px;
+    margin-top:20px;
+  "></div>
+</div>
     `;
   } catch (error) {
     console.error("Error estadísticas:", error);
