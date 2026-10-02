@@ -588,10 +588,80 @@ async function restaurarSesion() {
   accessToken = session.access_token;
 
   await mostrarPanel();
-
+await cargarEstadisticas();
 }
 
-restaurarSesion();
+// ==============================
+// ESTADÍSTICAS DE LA PLACA
+// ==============================
+
+async function cargarEstadisticas() {
+  if (!accessToken || !placaActual) return;
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/interactions?deonetap_id=eq.${placaActual.id}&select=created_at,source`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    if (!response.ok) throw new Error("No se pudieron cargar estadísticas");
+
+    const datos = await response.json();
+
+    const ahora = new Date();
+
+    const hoy = datos.filter(item => {
+      const fecha = new Date(item.created_at);
+      return fecha.toDateString() === ahora.toDateString();
+    }).length;
+
+    const ultimos7 = datos.filter(item => {
+      const fecha = new Date(item.created_at);
+      return ahora - fecha <= 7 * 24 * 60 * 60 * 1000;
+    }).length;
+
+    const ultimos30 = datos.filter(item => {
+      const fecha = new Date(item.created_at);
+      return ahora - fecha <= 30 * 24 * 60 * 60 * 1000;
+    }).length;
+
+    const qr = datos.filter(item => item.source === "qr").length;
+    const nfc = datos.filter(item => item.source === "nfc").length;
+
+    let caja = document.getElementById("estadisticas");
+
+    if (!caja) {
+      caja = document.createElement("div");
+      caja.id = "estadisticas";
+      caja.className = "card";
+
+      const panel = document.getElementById("panel");
+      panel.appendChild(caja);
+    }
+
+    caja.innerHTML = `
+      <div class="label">ESTADÍSTICAS</div>
+      <h2 style="color:#d4af37;">${datos.length} interacciones</h2>
+
+      <p>Hoy: <strong>${hoy}</strong></p>
+      <p>Últimos 7 días: <strong>${ultimos7}</strong></p>
+      <p>Últimos 30 días: <strong>${ultimos30}</strong></p>
+
+      <hr style="border-color:#292929;">
+
+      <p>QR: <strong>${qr}</strong></p>
+      <p>NFC: <strong>${nfc}</strong></p>
+    `;
+  } catch (error) {
+    console.error("Error estadísticas:", error);
+  }
+}
+  restaurarSesion();
 
 </script>
 
