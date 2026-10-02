@@ -3,17 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DEONETAP</title>
 </head>
+
 <body>
+
 <script>
 const SUPABASE_URL = "https://pgezbktyhlyjnlxwlpsx.supabase.co";
 const SUPABASE_KEY = "sb_publishable_m12HvUrizfuQHIUG9lWYrw_cU7sK_h0";
 
+const PLATE_CODE = "0001";
+
 async function redirect() {
+
   try {
+
+    // 1. Buscar la placa 0001
     const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/deonetaps?code=eq.0001&active=eq.true&select=destination_url`,
+      `${SUPABASE_URL}/rest/v1/deonetaps?code=eq.${PLATE_CODE}&select=id,destination_url`,
       {
         headers: {
           apikey: SUPABASE_KEY,
@@ -22,21 +30,64 @@ async function redirect() {
       }
     );
 
-    if (!response.ok) throw new Error("Error consultando destino");
+    if (!response.ok) {
+      throw new Error("No se pudo consultar la placa");
+    }
 
     const data = await response.json();
 
-    if (data.length && data[0].destination_url) {
-      window.location.replace(data[0].destination_url);
-    } else {
-      document.body.innerHTML = "<h2>DEONETAP no disponible</h2>";
+    if (!data.length || !data[0].destination_url) {
+      document.body.innerHTML =
+        "<h2>DEONETAP no configurado.</h2>";
+      return;
     }
+
+    const placa = data[0];
+
+    // 2. Registrar la interacción
+    try {
+
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/interactions`,
+        {
+          method: "POST",
+
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+            "Content-Type": "application/json",
+            Prefer: "return=minimal"
+          },
+
+          body: JSON.stringify({
+            deonetap_id: placa.id,
+            source: "qr_nfc"
+          })
+        }
+      );
+
+    } catch (error) {
+
+      // Aunque falle la estadística,
+      // la placa seguirá funcionando.
+      console.log("No se pudo registrar interacción");
+
+    }
+
+    // 3. Redirigir al destino actual
+    window.location.replace(placa.destination_url);
+
   } catch (error) {
-    document.body.innerHTML = "<h2>No pudimos abrir el enlace. Intenta nuevamente.</h2>";
+
+    document.body.innerHTML =
+      "<h2>No pudimos abrir esta DEONETAP.</h2>";
+
   }
+
 }
 
 redirect();
 </script>
+
 </body>
 </html>
