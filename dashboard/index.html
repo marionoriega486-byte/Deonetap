@@ -615,10 +615,15 @@ async function cargarEstadisticas() {
 
     const ahora = new Date();
 
-    const hoy = datos.filter(item => {
-      const fecha = new Date(item.created_at);
-      return fecha.toDateString() === ahora.toDateString();
-    }).length;
+   const hoy = datos.filter(item => {
+  const fecha = new Date(item.created_at);
+
+  return (
+    fecha.getFullYear() === ahora.getFullYear() &&
+    fecha.getMonth() === ahora.getMonth() &&
+    fecha.getDate() === ahora.getDate()
+  );
+}).length;
 
     const ultimos7 = datos.filter(item => {
       const fecha = new Date(item.created_at);
