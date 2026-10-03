@@ -667,6 +667,16 @@ async function cargarEstadisticas() {
     height:150px;
     margin-top:20px;
   "></div>
+  <div style="margin-top:30px;">
+  <div class="label">HORARIOS DE MAYOR USO</div>
+  <div id="graficaHoras" style="
+    display:flex;
+    align-items:flex-end;
+    gap:4px;
+    height:150px;
+    margin-top:20px;
+  "></div>
+</div>
 </div>
     `;
     // Crear gráfica de interacciones de los últimos 7 días
@@ -723,6 +733,47 @@ if (grafica) {
       </span>
     </div>
   `).join("");
+  // Crear gráfica de horarios de mayor uso
+const graficaHoras = document.getElementById("graficaHoras");
+
+if (graficaHoras) {
+  const horas = Array(24).fill(0);
+
+  datos.forEach(item => {
+    const fecha = new Date(item.created_at);
+    horas[fecha.getHours()]++;
+  });
+
+  const maxHora = Math.max(...horas, 1);
+
+  graficaHoras.innerHTML = horas.map((cantidad, hora) => `
+    <div style="
+      flex:1;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      align-items:center;
+      min-width:0;
+    ">
+      <span style="font-size:9px;margin-bottom:4px;">
+        ${cantidad || ""}
+      </span>
+
+      <div style="
+        width:100%;
+        max-width:18px;
+        height:${Math.max((cantidad / maxHora) * 100, 2)}px;
+        background:#d4af37;
+        border-radius:4px 4px 2px 2px;
+      "></div>
+
+      <span style="font-size:8px;margin-top:5px;">
+        ${hora % 3 === 0 ? hora : ""}
+      </span>
+    </div>
+  `).join("");
+}
 }
   } catch (error) {
     console.error("Error estadísticas:", error);
