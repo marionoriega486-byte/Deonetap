@@ -61,6 +61,7 @@ async function redirect() {
 
           body: JSON.stringify({
             deonetap_id: placa.id,
+            destination_url: placa.destination_url,
             source: new URLSearchParams(window.location.search).get("source") || "qr"
           })
         }
