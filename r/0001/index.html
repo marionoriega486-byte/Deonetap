@@ -13,7 +13,8 @@
 const SUPABASE_URL = "https://pgezbktyhlyjnlxwlpsx.supabase.co";
 const SUPABASE_KEY = "sb_publishable_m12HvUrizfuQHIUG9lWYrw_cU7sK_h0";
 
-const PLATE_CODE = "0001";
+const params = new URLSearchParams(window.location.search);
+const PLATE_CODE = params.get("id") || "0001";
 
 async function redirect() {
 
