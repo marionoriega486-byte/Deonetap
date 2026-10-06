@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DEONETAP</title>
+</head>
+<body>
+<script>
+  const path = window.location.pathname.split("/").filter(Boolean);
+  const code = path[path.length - 1];
+
+  if (/^\d{4}$/.test(code)) {
+    window.location.replace("/r/0001/?id=" + encodeURIComponent(code));
+  } else {
+    document.body.innerHTML = "<h2>DEONETAP no válido.</h2>";
+  }
+</script>
+</body>
+</html>
