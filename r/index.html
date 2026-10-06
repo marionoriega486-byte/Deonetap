@@ -11,7 +11,7 @@
   const params = new URLSearchParams(window.location.search);
   const code = params.get("id");
 
-  if (/^\d{4}$/.test(code)) {
+  if (code && code.length === 4 && !isNaN(Number(code))) {
     window.location.replace("/r/0001/?id=" + encodeURIComponent(code));
   } else {
     document.body.innerHTML = "<h2>DEONETAP no válido.</h2>";
