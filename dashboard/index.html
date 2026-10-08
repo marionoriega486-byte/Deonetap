@@ -405,7 +405,34 @@ async function mostrarPanel() {
     }
 
     placaActual = data[0];
+const selector = document.getElementById("plateSelector");
+const contenedor = document.getElementById("plateSelectorContainer");
 
+selector.innerHTML = "";
+
+data.forEach((placa) => {
+  const opcion = document.createElement("option");
+  opcion.value = placa.id;
+  opcion.textContent = `${placa.code} - ${placa.name || "Sin nombre"}`;
+  selector.appendChild(opcion);
+});
+
+selector.value = placaActual.id;
+    selector.addEventListener("change", () => {
+  placaActual = data.find(placa => placa.id === selector.value);
+
+  if (!placaActual) return;
+
+  document.getElementById("plateName").textContent =
+    placaActual.name || `DEONETAP ${placaActual.code}`;
+
+  document.getElementById("destination").value =
+    placaActual.destination_url || "";
+
+  document.getElementById("permanentUrl").textContent =
+    `https://deonetap.com/r/?id=${placaActual.code}`;
+});
+contenedor.style.display = data.length > 1 ? "block" : "none";
     document.getElementById("plateName").textContent =
       placaActual.name ||
       `DEONETAP ${placaActual.code}`;
