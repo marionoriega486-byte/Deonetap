@@ -433,6 +433,7 @@ selector.value = placaActual.id;
 
   if (!placaActual) return;
       actualizarBotonPlaca();
+      cargarEstadisticas();
 
   document.getElementById("plateName").textContent =
     placaActual.name || `DEONETAP ${placaActual.code}`;
@@ -717,7 +718,7 @@ async function cargarEstadisticas() {
 
    const hoy = datos.filter(item => {
   const fecha = new Date(item.created_at);
-
+m
   return (
     fecha.getFullYear() === ahora.getFullYear() &&
     fecha.getMonth() === ahora.getMonth() &&
