@@ -414,6 +414,7 @@ async function mostrarPanel() {
     }
 
     placaActual = data[0];
+    actualizarBotonPlaca();
 const selector = document.getElementById("plateSelector");
 const contenedor = document.getElementById("plateSelectorContainer");
 
@@ -431,6 +432,7 @@ selector.value = placaActual.id;
   placaActual = data.find(placa => placa.id === selector.value);
 
   if (!placaActual) return;
+      actualizarBotonPlaca();
 
   document.getElementById("plateName").textContent =
     placaActual.name || `DEONETAP ${placaActual.code}`;
@@ -572,7 +574,22 @@ async function guardarDestino() {
   }
 
 }
+function actualizarBotonPlaca() {
+  const boton = document.getElementById("toggleActiveButton");
+  const estado = document.getElementById("activeStatus");
 
+  if (!boton || !placaActual) return;
+
+  boton.textContent = placaActual.active
+    ? "Desactivar placa"
+    : "Activar placa";
+
+  estado.textContent = placaActual.active
+    ? "Estado: Activa"
+    : "Estado: Desactivada";
+
+  estado.style.display = "block";
+}
 async function cambiarEstadoPlaca() {
   if (!placaActual || !accessToken) return;
 
@@ -607,7 +624,7 @@ async function cambiarEstadoPlaca() {
     }
 
     placaActual.active = data[0].active;
-
+actualizarBotonPlaca();
     status.textContent = placaActual.active
       ? "✓ Placa activada correctamente."
       : "✓ Placa desactivada correctamente.";
