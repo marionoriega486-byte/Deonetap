@@ -204,7 +204,16 @@ footer {
     <button id="saveButton" onclick="guardarDestino()">
       Guardar destino
     </button>
+<button
+  id="toggleActiveButton"
+  type="button"
+  onclick="cambiarEstadoPlaca()"
+  style="margin-top:12px;"
+>
+  Activar / Desactivar placa
+</button>
 
+<div id="activeStatus" class="status"></div>
     <div id="saveStatus" class="status"></div>
 
   </div>
